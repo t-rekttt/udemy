@@ -59,7 +59,7 @@ run = async () => {
 
   end -= last_id[0].id
 
-  async.timesLimit(end-start+1, 50, (i, next) => {
+  async.timesLimit(end-start+1, process.env.crawler_threads_amount, (i, next) => {
     getCourseInfo(i+last_id[0].id)
       .then(processCourseInfo)
       .then(next)
