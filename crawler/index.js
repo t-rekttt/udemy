@@ -1,6 +1,6 @@
 require('dotenv').config()
 const mongoose = require('mongoose')
-const crawler = require('./crawler.js')
+const crawler = require(__dirname + '/crawler.js')
 
 mongoose.connect(process.env.dburi);
 

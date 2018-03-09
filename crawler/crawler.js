@@ -1,5 +1,5 @@
 const r2 = require('r2')
-const Course = require('../models/Courses.js')
+const { Course } = require(__dirname + '/../models')
 const timeout = ms => new Promise(res => setTimeout(res, ms))
 const async = require('async')
 const HttpsProxyAgent = require('https-proxy-agent')
