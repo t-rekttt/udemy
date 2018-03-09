@@ -2,9 +2,16 @@ const r2 = require('r2')
 const Course = require('../models/Courses.js')
 const timeout = ms => new Promise(res => setTimeout(res, ms))
 const async = require('async')
+const HttpsProxyAgent = require('https-proxy-agent')
 
 getCourseInfo = (id) => {
-  return r2(`https://www.udemy.com/api-2.0/courses/${id}?fields[course]=@default,buyable_object_type,num_published_lectures,content_info,rating,num_reviews,discount,image_75x75,estimated_content_length,last_update_date,num_subscribers,created,is_wishlisted,badges,is_recently_published`).json
+  let options = {}
+
+  if (process.env.https_proxy) {
+    options.agent = new HttpsProxyAgent(process.env.https_proxy)
+  }
+
+  return r2(`https://www.udemy.com/api-2.0/courses/${id}?fields[course]=@default,buyable_object_type,num_published_lectures,content_info,rating,num_reviews,discount,image_75x75,estimated_content_length,last_update_date,num_subscribers,created,is_wishlisted,badges,is_recently_published`, options).json
           .catch(err => {
             console.log('Get course info', err)
             return getCourseInfo(id)
