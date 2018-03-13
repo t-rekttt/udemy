@@ -40,7 +40,7 @@ app.use('/api', apiRouter)
 
 app.get('/', (req, res) => res.sendFile(__dirname + '/public/index.html'))
 
-app.listen(process.env.port, process.env.ip, function (req, res) {
+app.listen(process.env.PORT || process.env.port, process.env.ip, function (req, res) {
   var host = this.address().address
   var port = this.address().port
   console.log(`Listening on ${host}:${port}`)
