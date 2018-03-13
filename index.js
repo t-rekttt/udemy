@@ -34,9 +34,11 @@ app.use((req, res, next) => {
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json({extended: true}))
 
+app.use('/', express.static(__dirname + '/public'))
+
 app.use('/api', apiRouter)
 
-app.get('/', (req, res) => res.send('It works'))
+app.get('/', (req, res) => res.sendFile(__dirname + '/public/index.html'))
 
 app.listen(process.env.port, process.env.ip, function (req, res) {
   var host = this.address().address
