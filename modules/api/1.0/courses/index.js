@@ -1,22 +1,25 @@
 const Router = require('express').Router()
 const courseController = require(__dirname + '/courseController')
 
-Router.get('/getFreeCourses', (req, res) => {
-	let amount = parseInt(req.query.amount) || 0
-	courseController.getFreeCourses(amount)
-		.then(docs => res.json(docs))
-		.catch(err => console.log(err))
+Router.get('/getFreeCourses', (req, res, next) => {
+	let amount = parseInt(req.query.amount) || 1
+	let offset = parseInt(req.query.offset) || 0
+
+	courseController.getFreeCourses(amount, offset)
+		.then(docs => res.json({data: docs}))
+		.catch(err => next(err))
 })
 
-Router.get('/searchFreeCourses', (req, res) => {
+Router.get('/searchFreeCourses', (req, res, next) => {
 	if (!req.query.keyword) return res.json([]);
 
-	let amount = parseInt(req.query.amount) || 0
-	let keyword = req.query.keyword.toLowerCase();
+	let amount = parseInt(req.query.amount) || 1
+	let keyword = req.query.keyword.toLowerCase()
+	let offset = parseInt(req.query.offset) || 0
 
-	courseController.searchFreeCourses(keyword, amount)
-		.then(docs => res.json(docs))
-		.catch(err => console.log(err))
+	courseController.searchFreeCourses(keyword, amount, offset)
+		.then(docs => res.json({data: docs}))
+		.catch(err => next(err))
 })
 
 module.exports = Router

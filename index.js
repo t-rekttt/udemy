@@ -40,6 +40,11 @@ app.use('/api', apiRouter)
 
 app.get('/', (req, res) => res.sendFile(__dirname + '/public/index.html'))
 
+app.use((err, req, res, next) => {
+  console.log(err)
+  res.status(500).json({msg: 'An unexpected error has occured'})
+})
+
 app.listen(process.env.PORT || process.env.port, process.env.ip, function (req, res) {
   var host = this.address().address
   var port = this.address().port

@@ -40,13 +40,14 @@
 
             <button type="button" class="btn btn-primary mb-2" @click="search(keyword, 100)">Search</button>
           </form>
-          <h5 class="text-success found-title">Found {{courses.length}} courses</h5>
+          <h5 class="text-success found-title" v-show="resAmount!==null">Found {{resAmount}} courses</h5>
         </div>
       </div>
+
       <div class="row">
         <div class="col-md-4 thumbnail-card" v-for="e in courses">
           <div class="card" style="width: 20rem;">
-            <img class="card-img-top" :src="e.image_480x270">
+            <img class="card-img-top lazyload" :data-src="e.image_480x270" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
             <div class="card-body">
               <h5 class="card-title" v-text="e.title"></h5>
               <p class="card-text">
@@ -76,5 +77,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.15/vue.min.js"></script>
     <script src="./js/index.js"></script>
+    <script src="./js/lazysizes.min.js"></script>
   </body>
 </html>
