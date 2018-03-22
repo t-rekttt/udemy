@@ -81,6 +81,9 @@ var postSchema = mongoose.Schema({
 	},
 	last_update_date: {
 		type: 'Mixed'
+	},
+	description: {
+		type: 'String'
 	}
 })
 
