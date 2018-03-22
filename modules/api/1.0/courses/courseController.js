@@ -28,4 +28,14 @@ searchFreeCourses = (keyword, amount, offset) => {
   })
 }
 
-module.exports = { getFreeCourses, searchFreeCourses }
+getCourseById = (id) => {
+  return Course.aggregate([
+    {$match: {is_paid: false, rating: {$gt: 0}, id}}
+  ])
+  .then(docs => {
+    if (!docs || !docs.length) return {results: [], totalCount: 0};
+    else return docs[0]
+  })
+}
+
+module.exports = { getFreeCourses, searchFreeCourses, getCourseById }
